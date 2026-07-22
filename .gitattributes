@@ -1,0 +1,11 @@
+# Pin stored line endings to LF regardless of anyone's core.autocrlf setting.
+#
+# Matters most for .github/workflows/*.yml: those `run: |` blocks are executed by
+# bash on an Ubuntu runner, and a CRLF blob would make it read "set -euo pipefail\r"
+# -> "invalid option name". Windows checkouts still get CRLF in the working copy;
+# only what git stores is normalised.
+* text=auto eol=lf
+
+# Binary artefacts -- never line-ending-convert these.
+*.joblib binary
+*.png    binary

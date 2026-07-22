@@ -1,0 +1,13 @@
+# Deps for the scheduled snapshot refresh (.github/workflows/refresh-snapshot.yml).
+#
+# Deliberately a SUBSET of requirements.txt: the CI job only fetches and writes
+# JSON, it never renders, so streamlit / matplotlib / plotly are not installed.
+# scikit-learn IS needed -- snapshot.refresh() reads the gauge id out of the
+# trained bundle rather than hardcoding it, and joblib.load needs sklearn to
+# unpickle. Versions must stay in sync with requirements.txt, because CI imports
+# the same live_data.py the app does.
+numpy==2.5.1
+pandas==3.0.3
+requests==2.34.2
+joblib==1.5.3
+scikit-learn==1.9.0

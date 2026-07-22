@@ -1,0 +1,12 @@
+# --- Python / env ---
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- runtime caches (safe to drop) ---
+data/_cache/
+
+# NOTE: models/ , *.joblib and data/*.csv are DELIBERATELY tracked.
+# The app loads the bundles at startup, so excluding them is the classic
+# "model never pushed -> app crashes on load" failure. Do NOT add them here.

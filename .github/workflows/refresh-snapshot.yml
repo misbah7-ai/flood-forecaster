@@ -1,0 +1,63 @@
+# Scheduled refresh of data/snapshot.json.
+#
+# This is the whole point of the decoupling: the API calls happen HERE, on a
+# timer, where a failure is invisible to users and simply retries next hour.
+# app.py only ever reads the committed snapshot, so a user's page load can no
+# longer trigger (or be broken by) an Open-Meteo rate limit.
+name: Refresh forecast snapshot
+
+on:
+  schedule:
+    # Hourly, deliberately off the hour: :00 is the busiest minute on the shared
+    # GitHub runner pool and on Open-Meteo, and scheduled jobs get queued there.
+    - cron: "23 * * * *"
+  workflow_dispatch: {}   # manual "refresh now" button in the Actions tab
+
+permissions:
+  contents: write         # needed to commit the snapshot back
+
+concurrency:
+  group: refresh-snapshot
+  cancel-in-progress: false   # never abandon a half-finished fetch
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-snapshot.txt
+
+      - name: Install fetch-only deps
+        run: pip install -r requirements-snapshot.txt
+
+      # Per-source merge: whatever succeeds is updated, whatever fails keeps its
+      # previous good value. Only a total wipe-out with no prior snapshot fails
+      # the job, so a GloFAS blip never costs us the weather and never pages us.
+      - name: Fetch every live source
+        run: python snapshot.py --refresh
+
+      - name: Commit only if the weather values actually moved
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain data/snapshot.json)" ]; then
+            echo "Content hash unchanged -- Open-Meteo is still serving the same"
+            echo "model run. Nothing to commit; the snapshot on main is current."
+            exit 0
+          fi
+          git config user.name  "flood-snapshot-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshot.json
+          git commit -m "chore(snapshot): refresh live forecast data [skip ci]"
+          # rebase first so a human push landing mid-run doesn't fail the job
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Summary
+        if: always()
+        run: python snapshot.py >> "$GITHUB_STEP_SUMMARY"

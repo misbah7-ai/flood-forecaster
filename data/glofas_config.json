@@ -1,0 +1,8 @@
+{
+  "dlat": 0.1,
+  "dlon": -0.1,
+  "usgs_mean_m3s": 13.003972285357582,
+  "base_coord_mean_m3s": 0.350210843373494,
+  "chosen_mean_m3s": 10.960109529025189,
+  "indicative": false
+}

@@ -1,0 +1,158 @@
+{
+  "event": {
+    "primary": {
+      "n_events": 41,
+      "POD_7day": 0.9512195121951219,
+      "POD_lead<=3": 0.9512195121951219,
+      "median_lead_days": 7.0,
+      "alert_frequency": 0.508641975308642,
+      "false_alarm_ratio": 0.8360302049622438,
+      "CSI": 0.1625668449197861,
+      "hits": 304,
+      "misses": 16,
+      "false_alarms": 1550,
+      "lead_hist": {
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 0,
+        "5": 1,
+        "6": 1,
+        "7": 36
+      }
+    },
+    "high_confidence": {
+      "n_events": 41,
+      "POD_7day": 0.7804878048780488,
+      "POD_lead<=3": 0.7073170731707317,
+      "median_lead_days": 7.0,
+      "alert_frequency": 0.12510288065843622,
+      "false_alarm_ratio": 0.5570175438596491,
+      "CSI": 0.3519163763066202,
+      "hits": 202,
+      "misses": 118,
+      "false_alarms": 254,
+      "lead_hist": {
+        "1": 0,
+        "2": 4,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 1,
+        "7": 27
+      }
+    }
+  },
+  "target_alert_high_confidence": 0.02,
+  "glofas": {
+    "offset": [
+      0.1,
+      -0.1
+    ],
+    "indicative": false,
+    "usgs_mean_m3s": 13.003972285357582,
+    "base_coord_mean_m3s": 0.350210843373494,
+    "chosen_mean_m3s": 10.960109529025189,
+    "glofas_thr_cfs": 1734.4956163800002,
+    "vs_usgs": {
+      "POD": 0.4146341463414634,
+      "FAR": 0.5405405405405406,
+      "alert_freq": 0.020262869660460023
+    },
+    "flavor": "reanalysis"
+  },
+  "glofas_matched": {
+    "n_days": 3645,
+    "glofas": {
+      "POD": 0.4146341463414634,
+      "FAR": 0.5405405405405406,
+      "alert_freq": 0.02030178326474623
+    },
+    "model_pod_at_glofas_far": 0.186411149825784,
+    "model_primary": {
+      "POD": 0.926829268292683,
+      "FAR": 0.8793650793650793,
+      "alert_freq": 0.1728395061728395
+    },
+    "model_high_conf": {
+      "POD": 0.524390243902439,
+      "FAR": 0.6640625,
+      "alert_freq": 0.035116598079561044
+    }
+  },
+  "real_forecast": {
+    "window": [
+      "2022-01-01",
+      "2024-12-24"
+    ],
+    "n_rows": 7623,
+    "n_pos": 119,
+    "archived_fc_vs_obs_rain_corr": 0.5681067928297748,
+    "per_horizon": [
+      {
+        "horizon": 1,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.48200677020376037,
+        "pr_auc_real": 0.47195469572924453,
+        "recall_perfect": 1.0,
+        "recall_real": 1.0
+      },
+      {
+        "horizon": 2,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.38793592825156664,
+        "pr_auc_real": 0.3472123295375238,
+        "recall_perfect": 1.0,
+        "recall_real": 0.9411764705882353
+      },
+      {
+        "horizon": 3,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.4089073090314651,
+        "pr_auc_real": 0.29502664999228867,
+        "recall_perfect": 1.0,
+        "recall_real": 1.0
+      },
+      {
+        "horizon": 4,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.35690832448715404,
+        "pr_auc_real": 0.25220671955970647,
+        "recall_perfect": 1.0,
+        "recall_real": 1.0
+      },
+      {
+        "horizon": 5,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.38720212946715354,
+        "pr_auc_real": 0.3169473613084868,
+        "recall_perfect": 1.0,
+        "recall_real": 1.0
+      },
+      {
+        "horizon": 6,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.40405751768092035,
+        "pr_auc_real": 0.30905737114782533,
+        "recall_perfect": 1.0,
+        "recall_real": 1.0
+      },
+      {
+        "horizon": 7,
+        "n": 1089,
+        "n_pos": 17,
+        "pr_auc_perfect": 0.3741851721229637,
+        "pr_auc_real": 0.2677884495451486,
+        "recall_perfect": 0.9411764705882353,
+        "recall_real": 0.8823529411764706
+      }
+    ],
+    "note": "Real archived forecasts (rain corr 0.57 with observed) vs the perfect-prog proxy on the same anchors/labels. Small, single-basin, recent sample -> indicative; the synthetic degradation test spans all leads on 2005-2014."
+  }
+}

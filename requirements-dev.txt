@@ -1,0 +1,5 @@
+# Dev-only: run the notebook. (App/deploy needs only requirements.txt.)
+-r requirements.txt
+jupyter
+nbconvert
+ipykernel
